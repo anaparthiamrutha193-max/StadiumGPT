@@ -10,3 +10,13 @@
 * Organized with a scalable project structure for future AI and backend integration.
 * Showcases skills in **React.js, JavaScript, HTML, CSS, Tailwind CSS, API integration, and UI/UX design**.
 * Developed as an academic/project portfolio to demonstrate full-stack and AI application development skills.
+react
+fastapi
+python
+ai
+smart-stadium
+sports-tech
+machine-learning
+tailwindcss
+full-stack
+chatbot
