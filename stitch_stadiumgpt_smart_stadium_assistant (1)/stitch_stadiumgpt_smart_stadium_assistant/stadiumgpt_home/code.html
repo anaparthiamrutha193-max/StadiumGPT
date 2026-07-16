@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StadiumGPT | FIFA World Cup 2026 AI Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Inter:wght@400;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#00363f",
+                        "on-primary-container": "#007137",
+                        "on-secondary": "#203247",
+                        "on-tertiary-fixed-variant": "#004e5a",
+                        "on-secondary-container": "#a4b7d1",
+                        "surface-container": "#1d2022",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#e0e3e5",
+                        "tertiary-container": "#93ebff",
+                        "primary": "#f0ffee",
+                        "surface-container-lowest": "#0b0f10",
+                        "primary-fixed": "#61ff97",
+                        "on-primary": "#003919",
+                        "surface": "#101415",
+                        "on-primary-fixed-variant": "#005227",
+                        "on-tertiary-container": "#006c7b",
+                        "on-surface": "#e0e3e5",
+                        "tertiary-fixed-dim": "#00daf8",
+                        "background": "#101415",
+                        "secondary-fixed-dim": "#b5c8e3",
+                        "surface-container-highest": "#323537",
+                        "on-secondary-fixed": "#091c31",
+                        "secondary": "#b5c8e3",
+                        "surface-variant": "#323537",
+                        "inverse-primary": "#006d35",
+                        "on-error": "#690005",
+                        "surface-tint": "#00e476",
+                        "outline": "#849584",
+                        "surface-dim": "#101415",
+                        "surface-bright": "#363a3b",
+                        "secondary-fixed": "#d2e4ff",
+                        "surface-container-high": "#272a2c",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed-variant": "#36485e",
+                        "on-tertiary-fixed": "#001f25",
+                        "primary-container": "#00ff85",
+                        "surface-container-low": "#191c1e",
+                        "on-primary-fixed": "#00210c",
+                        "on-background": "#e0e3e5",
+                        "tertiary": "#f3fcff",
+                        "tertiary-fixed": "#a5eeff",
+                        "secondary-container": "#36485e",
+                        "outline-variant": "#3b4b3d",
+                        "on-surface-variant": "#b9cbb9",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#2d3133",
+                        "primary-fixed-dim": "#00e476"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "24px",
+                        "base": "8px",
+                        "section-gap": "48px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display-lg-mobile": ["Montserrat"],
+                        "headline-lg": ["Montserrat"],
+                        "display-lg": ["Montserrat"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Montserrat"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-float {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0px 10px 30px rgba(0, 255, 133, 0.1);
+        }
+        .glow-green {
+            box-shadow: 0 0 20px rgba(0, 255, 133, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pitch-gradient {
+            background: radial-gradient(circle at top right, #1d2022 0%, #101415 100%);
+        }
+        body {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-container-margin h-16 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-outline-variant/10 shadow-sm">
+<div class="flex items-center gap-3">
+<img alt="StadiumGPT Logo" class="h-10 w-10 rounded-md object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwCMiyzCvg7UhY7yXHp0_HVlh_H2llJ1m2L-M8ie6VWhedQnk71r1r_MdtoGcMHmQf5HV36u18v-w2yxRSmKakt_F_6etwY3liYJ2rCo5K4j326i5ejzlbJ8tuJYzGvOS74VBZtGjjkySY_w_q8MyYsN0HWCodf7MAt8kUaNtPb0pSx-k5lbHE8lbE8ApNLSegVlbmO2GJ6wLrRCnyxRQHW3iIOJq0oii251hIXSe0JzPas2TlKyyd"/>
+<span class="font-headline-md text-headline-md font-extrabold text-primary-container dark:text-primary-fixed">StadiumGPT</span>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="font-body-md text-body-md text-primary-container dark:text-primary-fixed border-b-2 border-primary-container dark:border-primary-fixed pb-1 cursor-pointer transition-all" href="#">Home</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-secondary-container hover:text-primary-container transition-colors cursor-pointer active:scale-95" href="#">Fan Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-secondary-container hover:text-primary-container transition-colors cursor-pointer active:scale-95" href="#">Staff Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-secondary-container hover:text-primary-container transition-colors cursor-pointer active:scale-95" href="#">Volunteer Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-on-secondary-container hover:text-primary-container transition-colors cursor-pointer active:scale-95" href="#">About</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed transition-colors">notifications</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary-fixed transition-colors">language</button>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="A professional user profile portrait in a futuristic sports setting, soft cinematic lighting, blue and green ambient tones, high quality digital photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCARpSnAg85jpSOvbGlkxhFpsDzcHUgmQ22x3DSZkB-H_jcT42GkQFe6O1Z3nt0DLES3aO_O_EJ7gnl1U2UvcAS-YsAT1MMmWsVjHb2DxWW8ltUA80__apd-HdsCTTnknUlFuxGzjQIaBcuIJ9buiAu8mi__yl4IYXBqZviI3CUUGPhpFEDJDvK0UgHAJGfaslqn-aM9IwAtPFy3QYFOZZpc-aOFuNZM0aK-PHIXkhNBapg8iYlKuol"/>
+</div>
+</div>
+</header>
+<main class="pt-16">
+<!-- Hero Section -->
+<section class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+<!-- Stadium Background -->
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center scale-110" data-alt="A massive, futuristic 2026 FIFA World Cup stadium at night, illuminated by intense green floodlights and vibrant neon signage. The architecture is ultra-modern with sweeping metallic curves and glass panels. The atmosphere is energetic, cinematic, and epic, with a slight digital haze and high-tech UI overlays integrated into the environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBJnXLN_3I4oon_bP3NauUe1Sr-t10T7ByEwAUTEvFN_Wc3bU8pgpo6_TbT93lsLi6RujaVuKq0jv42_owbmMnN5Pmflz5jT9CxrqaFHQCROamm36QRglnjh0KnGjsN44NRWK7iMN3OL2Vtk-vUGCp7shv-XLklMm5dxRaXZpnHEzGZS0wo0dJ6WxQFyBzlMCQH3j0lcJO0HKMWV_7alQ5C6SSZoMogljA69Fs_KC8JXzEuIRKRjRx9')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-4xl px-container-margin text-center">
+<div class="glass-float p-12 rounded-3xl border border-white/10 inline-block animate-in fade-in slide-in-from-bottom-8 duration-1000">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg mb-4 text-white leading-tight">
+                        Welcome to <span class="text-primary-container">StadiumGPT</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-2xl mx-auto">
+                        Your AI-powered command center for the FIFA World Cup 2026. Real-time insights, smart navigation, and seamless fan experiences.
+                    </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+<button class="w-full sm:w-auto px-8 py-4 bg-primary-container text-on-primary-container font-label-md text-label-md rounded-xl hover:brightness-110 transition-all hover:scale-105 glow-green flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+                            Explore Stadium
+                        </button>
+<button class="w-full sm:w-auto px-8 py-4 glass-panel text-white font-label-md text-label-md rounded-xl hover:bg-white/10 transition-all border border-white/20 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">smart_toy</span>
+                            Ask AI Assistant
+                        </button>
+</div>
+</div>
+</div>
+<!-- Scroll Indicator -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce flex flex-col items-center">
+<span class="text-label-md text-on-surface-variant mb-2">SCROLL</span>
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</section>
+<!-- Feature Grid Section -->
+<section class="py-section-gap px-container-margin max-w-7xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg mb-4">Intelligent Stadium Ecosystem</h2>
+<p class="text-on-surface-variant max-w-xl mx-auto">Leveraging next-gen artificial intelligence to redefine every aspect of your World Cup journey.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- AI Navigation -->
+<div class="glass-panel p-8 rounded-2xl hover:bg-white/10 transition-all group cursor-pointer border border-white/5">
+<div class="w-14 h-14 bg-primary-container/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary-container text-3xl">route</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">AI Navigation</h3>
+<p class="text-on-surface-variant font-body-md">Dynamic pathfinding through stadium levels based on live crowd density and gate proximity.</p>
+</div>
+<!-- Crowd Monitoring -->
+<div class="glass-panel p-8 rounded-2xl hover:bg-white/10 transition-all group cursor-pointer border border-white/5">
+<div class="w-14 h-14 bg-tertiary-container/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-3xl">groups</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Crowd Monitoring</h3>
+<p class="text-on-surface-variant font-body-md">Real-time heatmaps and predictive analytics to ensure safety and optimized traffic flow.</p>
+</div>
+<!-- Emergency Assistance -->
+<div class="glass-panel p-8 rounded-2xl hover:bg-white/10 transition-all group cursor-pointer border border-white/5">
+<div class="w-14 h-14 bg-error/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-error text-3xl">emergency</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Emergency Response</h3>
+<p class="text-on-surface-variant font-body-md">Instant alert systems and medical assistance dispatching with precise fan location data.</p>
+</div>
+<!-- Transportation -->
+<div class="glass-panel p-8 rounded-2xl hover:bg-white/10 transition-all group cursor-pointer border border-white/5">
+<div class="w-14 h-14 bg-secondary-fixed/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary text-3xl">commute</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Transportation</h3>
+<p class="text-on-surface-variant font-body-md">Seamless transit coordination including shuttle live-tracking and parking management.</p>
+</div>
+<!-- Multilingual Support -->
+<div class="glass-panel p-8 rounded-2xl hover:bg-white/10 transition-all group cursor-pointer border border-white/5">
+<div class="w-14 h-14 bg-primary-container/10 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary-fixed text-3xl">translate</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Multilingual Support</h3>
+<p class="text-on-surface-variant font-body-md">Real-time voice and text translation in 50+ languages for a truly global fan experience.</p>
+</div>
+<!-- Sustainability -->
+<div class="glass-panel p-8 rounded-2xl hover:bg-white/10 transition-all group cursor-pointer border border-white/5">
+<div class="w-14 h-14 bg-on-primary-container/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary-container text-3xl">eco</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-3">Sustainability</h3>
+<p class="text-on-surface-variant font-body-md">AI-optimized resource management for energy efficiency and smart waste handling.</p>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-section-gap px-container-margin bg-surface-container-low">
+<div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-gutter text-center">
+<div>
+<div class="text-primary-container font-headline-lg text-4xl lg:text-5xl mb-2 font-extrabold">12</div>
+<div class="text-on-surface-variant font-label-md uppercase">Host Cities</div>
+</div>
+<div>
+<div class="text-primary-container font-headline-lg text-4xl lg:text-5xl mb-2 font-extrabold">48</div>
+<div class="text-on-surface-variant font-label-md uppercase">Competing Teams</div>
+</div>
+<div>
+<div class="text-primary-container font-headline-lg text-4xl lg:text-5xl mb-2 font-extrabold">104</div>
+<div class="text-on-surface-variant font-label-md uppercase">Live Matches</div>
+</div>
+<div>
+<div class="text-primary-container font-headline-lg text-4xl lg:text-5xl mb-2 font-extrabold">1.5M</div>
+<div class="text-on-surface-variant font-label-md uppercase">Total Capacity</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 px-container-margin flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-container-lowest border-t border-outline-variant/5">
+<div class="flex items-center gap-2">
+<img alt="StadiumGPT" class="h-6 w-6" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwCMiyzCvg7UhY7yXHp0_HVlh_H2llJ1m2L-M8ie6VWhedQnk71r1r_MdtoGcMHmQf5HV36u18v-w2yxRSmKakt_F_6etwY3liYJ2rCo5K4j326i5ejzlbJ8tuJYzGvOS74VBZtGjjkySY_w_q8MyYsN0HWCodf7MAt8kUaNtPb0pSx-k5lbHE8lbE8ApNLSegVlbmO2GJ6wLrRCnyxRQHW3iIOJq0oii251hIXSe0JzPas2TlKyyd"/>
+<span class="font-headline-sm text-headline-sm text-primary">StadiumGPT</span>
+</div>
+<div class="flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" href="#">Stadium Map</a>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">© 2024 StadiumGPT. All rights reserved.</p>
+</footer>
+<!-- Floating AI Button -->
+<button class="fixed bottom-6 right-6 h-16 w-16 bg-primary-container text-on-primary-container rounded-full shadow-2xl flex items-center justify-center z-[100] glow-green hover:scale-110 active:scale-95 transition-all group" id="ai-fab">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-12 transition-transform">smart_toy</span>
+</button>
+<!-- Chat Modal (Hidden by default) -->
+<div class="fixed bottom-24 right-6 w-[380px] h-[500px] glass-float rounded-3xl z-[100] flex-col overflow-hidden border border-white/20 hidden flex scale-90 opacity-0 transition-all duration-300 origin-bottom-right" id="chat-modal">
+<div class="p-6 bg-primary-container text-on-primary-container flex justify-between items-center">
+<div class="flex items-center gap-3">
+<img alt="AI" class="h-8 w-8" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwCMiyzCvg7UhY7yXHp0_HVlh_H2llJ1m2L-M8ie6VWhedQnk71r1r_MdtoGcMHmQf5HV36u18v-w2yxRSmKakt_F_6etwY3liYJ2rCo5K4j326i5ejzlbJ8tuJYzGvOS74VBZtGjjkySY_w_q8MyYsN0HWCodf7MAt8kUaNtPb0pSx-k5lbHE8lbE8ApNLSegVlbmO2GJ6wLrRCnyxRQHW3iIOJq0oii251hIXSe0JzPas2TlKyyd"/>
+<div>
+<h4 class="font-label-md">StadiumGPT AI</h4>
+<span class="text-[10px] uppercase font-bold opacity-70">Online & Ready</span>
+</div>
+</div>
+<button class="material-symbols-outlined" id="close-chat">close</button>
+</div>
+<div class="flex-1 p-6 overflow-y-auto flex flex-col gap-4">
+<div class="bg-white/10 p-3 rounded-2xl rounded-tl-none self-start max-w-[80%]">
+<p class="text-sm">Welcome to the 2026 World Cup! How can I assist your stadium experience today?</p>
+</div>
+<div class="bg-primary-container/20 p-3 rounded-2xl rounded-tr-none self-end max-w-[80%] border border-primary-container/30">
+<p class="text-sm">Where is the nearest shuttle station?</p>
+</div>
+<div class="bg-white/10 p-3 rounded-2xl rounded-tl-none self-start max-w-[80%]">
+<p class="text-sm">The nearest shuttle is at Gate 4. Current wait time: 4 minutes. Would you like a route map?</p>
+</div>
+</div>
+<div class="p-4 border-t border-white/10 flex gap-2">
+<input class="flex-1 bg-black/20 border border-white/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-primary-container" placeholder="Type your question..." type="text"/>
+<button class="h-10 w-10 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-center">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</div>
+<script>
+        const fab = document.getElementById('ai-fab');
+        const modal = document.getElementById('chat-modal');
+        const close = document.getElementById('close-chat');
+
+        fab.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('scale-90', 'opacity-0');
+                modal.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        });
+
+        close.addEventListener('click', () => {
+            modal.classList.add('scale-90', 'opacity-0');
+            modal.classList.remove('scale-100', 'opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        });
+
+        // Background parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const bg = document.querySelector('.scale-110');
+            bg.style.transform = `scale(1.1) translateY(${scrolled * 0.3}px)`;
+        });
+    </script>
+</body></html>

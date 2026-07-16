@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StadiumGPT Staff Dashboard | Operations &amp; Security</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#00363f",
+                    "on-primary-container": "#007137",
+                    "on-secondary": "#203247",
+                    "on-tertiary-fixed-variant": "#004e5a",
+                    "on-secondary-container": "#a4b7d1",
+                    "surface-container": "#1d2022",
+                    "on-error-container": "#ffdad6",
+                    "inverse-surface": "#e0e3e5",
+                    "tertiary-container": "#93ebff",
+                    "primary": "#f0ffee",
+                    "surface-container-lowest": "#0b0f10",
+                    "primary-fixed": "#61ff97",
+                    "on-primary": "#003919",
+                    "surface": "#101415",
+                    "on-primary-fixed-variant": "#005227",
+                    "on-tertiary-container": "#006c7b",
+                    "on-surface": "#e0e3e5",
+                    "tertiary-fixed-dim": "#00daf8",
+                    "background": "#101415",
+                    "secondary-fixed-dim": "#b5c8e3",
+                    "surface-container-highest": "#323537",
+                    "on-secondary-fixed": "#091c31",
+                    "secondary": "#b5c8e3",
+                    "surface-variant": "#323537",
+                    "inverse-primary": "#006d35",
+                    "on-error": "#690005",
+                    "surface-tint": "#00e476",
+                    "outline": "#849584",
+                    "surface-dim": "#101415",
+                    "surface-bright": "#363a3b",
+                    "secondary-fixed": "#d2e4ff",
+                    "surface-container-high": "#272a2c",
+                    "error": "#ffb4ab",
+                    "on-secondary-fixed-variant": "#36485e",
+                    "on-tertiary-fixed": "#001f25",
+                    "primary-container": "#00ff85",
+                    "surface-container-low": "#191c1e",
+                    "on-primary-fixed": "#00210c",
+                    "on-background": "#e0e3e5",
+                    "tertiary": "#f3fcff",
+                    "tertiary-fixed": "#a5eeff",
+                    "secondary-container": "#36485e",
+                    "outline-variant": "#3b4b3d",
+                    "on-surface-variant": "#b9cbb9",
+                    "error-container": "#93000a",
+                    "inverse-on-surface": "#2d3133",
+                    "primary-fixed-dim": "#00e476"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "24px",
+                    "base": "8px",
+                    "section-gap": "48px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display-lg-mobile": ["Montserrat"],
+                    "headline-lg": ["Montserrat"],
+                    "display-lg": ["Montserrat"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Montserrat"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glass-card-float {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0px 10px 30px rgba(0, 255, 133, 0.1);
+        }
+        .pitch-green-glow {
+            text-shadow: 0 0 10px rgba(0, 255, 133, 0.5);
+        }
+        .blinking {
+            animation: blinker 1.5s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0.3; }
+        }
+        .pulse-live {
+            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.33); }
+            80%, 100% { opacity: 0; }
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101415;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3b4b3d;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden h-screen flex">
+<!-- Side Navigation Shell -->
+<nav class="hidden lg:flex flex-col h-screen fixed left-0 top-0 z-40 p-4 bg-surface-container/90 dark:bg-surface-container/90 backdrop-blur-2xl border-r border-outline-variant/10 w-64 shadow-2xl">
+<div class="flex items-center gap-3 mb-8 px-2">
+<img alt="StadiumGPT AI" class="w-10 h-10 rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwCMiyzCvg7UhY7yXHp0_HVlh_H2llJ1m2L-M8ie6VWhedQnk71r1r_MdtoGcMHmQf5HV36u18v-w2yxRSmKakt_F_6etwY3liYJ2rCo5K4j326i5ejzlbJ8tuJYzGvOS74VBZtGjjkySY_w_q8MyYsN0HWCodf7MAt8kUaNtPb0pSx-k5lbHE8lbE8ApNLSegVlbmO2GJ6wLrRCnyxRQHW3iIOJq0oii251hIXSe0JzPas2TlKyyd"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary-container">StadiumGPT</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Staff Hub</p>
+</div>
+</div>
+<div class="space-y-2 flex-grow">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-white/5 rounded-xl transition-all p-3 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">home</span> Home
+            </a>
+<a class="flex items-center gap-3 bg-primary-container/20 text-primary-container rounded-xl p-3 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">dashboard</span> Staff Dashboard
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-white/5 rounded-xl transition-all p-3 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">event</span> Schedule
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-white/5 rounded-xl transition-all p-3 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+</div>
+<button class="mt-auto bg-primary-container/10 border border-primary-container/20 text-primary-container py-3 rounded-xl font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary-container/20 transition-all">
+<span class="material-symbols-outlined">chat_bubble</span> Open AI Chat
+        </button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow lg:ml-64 h-screen overflow-y-auto bg-background p-6 space-y-6">
+<!-- Header Section -->
+<header class="flex justify-between items-center mb-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary-container tracking-tight">Ops Control Center</h2>
+<div class="flex items-center gap-3 mt-1">
+<span class="flex items-center gap-1.5 bg-error-container/20 text-error px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest">
+<span class="w-1.5 h-1.5 bg-error rounded-full inline-block pulse-live"></span> Live Match
+                    </span>
+<span class="text-on-surface-variant font-label-md text-label-md">Stadium Capacity: 74,500 / 80,000</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="material-symbols-outlined p-2 rounded-full glass-card hover:bg-white/10 text-on-surface transition-all">notifications</button>
+<button class="material-symbols-outlined p-2 rounded-full glass-card hover:bg-white/10 text-on-surface transition-all">language</button>
+</div>
+<div class="flex items-center gap-3 border-l border-outline-variant/20 pl-4">
+<img class="w-10 h-10 rounded-full border border-primary-container/30" data-alt="A professional portrait of a security operations manager in a sleek, dark tech-focused environment. The lighting is cold with blue and green highlights reflecting from multiple holographic screens. The manager is middle-aged, wearing a modern charcoal uniform with subtle digital insignias, looking focused and authoritative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAH5ReJ_n0VlP2J5k_qjeg3oZ0uAG5F59oyfYgd3x4h9B1MODNbEMigG5IUSaljx6BtJmRmt5xLjUIXXuBxAUBlRLV8VaAHYn_sjMBVvk0sp9tCERJJ1RhWjy5helgkW7U5rtJmxVEfIUSx97R_tIEvFsezP0l_zJ1lgQ8EmJ-nDHaJeKt6L8qR47QzPJLLW2kn_oI0S9IYX2xet7NiIfh0W6tVPwmysvbq7auxf37akopC4Zhkgxaf"/>
+<div class="hidden md:block">
+<p class="font-label-md text-label-md text-on-surface">Cmdr. Sterling</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Operations Lead</p>
+</div>
+</div>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6 pb-12">
+<!-- Main Visualization: Crowd Heatmap (8 columns) -->
+<section class="col-span-12 lg:col-span-8 glass-card rounded-xl p-6 relative min-h-[480px]">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">layers</span> Crowd Density Heatmap
+                    </h3>
+<div class="flex gap-2">
+<span class="bg-surface-container-highest px-3 py-1 rounded-full text-[10px] font-bold">CONCOURSE B</span>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-[10px] font-bold">LEVEL 1</span>
+</div>
+</div>
+<!-- Heatmap Placeholder with Data Visualization style -->
+<div class="w-full h-[360px] rounded-lg overflow-hidden relative border border-white/5 bg-black/40">
+
+<!-- Overlay Map UI Elements -->
+<div class="absolute inset-0 p-8 flex items-center justify-center">
+<div class="w-3/4 h-3/4 border-2 border-primary-container/20 rounded-full flex items-center justify-center">
+<div class="w-1/2 h-1/2 border border-primary-container/10 rounded-full"></div>
+</div>
+</div>
+<!-- Floating Data Points -->
+<div class="absolute top-1/4 left-1/3 p-2 glass-card-float rounded-lg">
+<p class="text-[10px] text-on-primary-container font-bold">GATE A-4</p>
+<p class="text-lg font-bold text-primary-container">94% Peak</p>
+</div>
+<div class="absolute bottom-1/4 right-1/4 p-2 glass-card-float rounded-lg border-error/30">
+<p class="text-[10px] text-error font-bold">SECTION 102</p>
+<p class="text-lg font-bold text-error">CONGESTION</p>
+</div>
+</div>
+<div class="mt-4 flex gap-6 text-on-surface-variant font-label-md">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-primary-container rounded-full"></div> Optimal
+                    </div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-secondary-fixed-dim rounded-full"></div> Moderate
+                    </div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 bg-error rounded-full"></div> Critical
+                    </div>
+</div>
+</section>
+<!-- Gate Status: Grid of badges (4 columns) -->
+<section class="col-span-12 lg:col-span-4 glass-card rounded-xl p-6">
+<h3 class="font-headline-md text-headline-md mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">door_front</span> Gate Status
+                </h3>
+<div class="grid grid-cols-2 gap-4">
+<!-- Status Badge -->
+<div class="bg-surface-container-low p-3 rounded-lg border border-white/5">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] text-on-surface-variant font-bold">GATE 01</span>
+<span class="w-2 h-2 bg-primary-container rounded-full"></span>
+</div>
+<p class="text-lg font-bold">OPEN</p>
+<p class="text-[10px] text-primary-container font-medium">Flow: 24/min</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-white/5">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] text-on-surface-variant font-bold">GATE 02</span>
+<span class="w-2 h-2 bg-primary-container rounded-full"></span>
+</div>
+<p class="text-lg font-bold">OPEN</p>
+<p class="text-[10px] text-primary-container font-medium">Flow: 31/min</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-white/5">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] text-on-surface-variant font-bold">GATE 03</span>
+<span class="w-2 h-2 bg-error rounded-full blinking"></span>
+</div>
+<p class="text-lg font-bold text-error">JAMMED</p>
+<p class="text-[10px] text-error font-medium">Clearance: 12m</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-white/5">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] text-on-surface-variant font-bold">GATE 04</span>
+<span class="w-2 h-2 bg-secondary-fixed-dim rounded-full"></span>
+</div>
+<p class="text-lg font-bold text-secondary">VIP ONLY</p>
+<p class="text-[10px] text-secondary font-medium">Flow: 5/min</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-white/5">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] text-on-surface-variant font-bold">SERVICE</span>
+<span class="w-2 h-2 bg-primary-container rounded-full"></span>
+</div>
+<p class="text-lg font-bold">ACTIVE</p>
+<p class="text-[10px] text-primary-container font-medium">Authorized only</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-white/5">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] text-on-surface-variant font-bold">GATE 05</span>
+<span class="w-2 h-2 bg-surface-variant rounded-full"></span>
+</div>
+<p class="text-lg font-bold text-on-surface-variant">CLOSED</p>
+<p class="text-[10px] text-on-surface-variant font-medium">Manual override</p>
+</div>
+</div>
+<!-- Queue Length Bar Chart -->
+<div class="mt-8 border-t border-white/10 pt-6">
+<h4 class="font-label-md text-label-md mb-4 text-on-surface uppercase tracking-wider">Queue Length Trends</h4>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold w-12">WEST</span>
+<div class="flex-grow h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 85%"></div>
+</div>
+<span class="text-[10px] font-bold">14m</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold w-12">NORTH</span>
+<div class="flex-grow h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 45%"></div>
+</div>
+<span class="text-[10px] font-bold">6m</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold w-12">EAST</span>
+<div class="flex-grow h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error" style="width: 95%"></div>
+</div>
+<span class="text-[10px] font-bold text-error">22m</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Alerts Row -->
+<section class="col-span-12 lg:col-span-4 glass-card rounded-xl p-6 h-[400px] flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-error">warning</span> Security Alerts
+                    </h3>
+<span class="bg-error/10 text-error px-2 py-0.5 rounded text-[10px] font-extrabold uppercase">3 Active</span>
+</div>
+<div class="flex-grow overflow-y-auto space-y-4 pr-2">
+<!-- Alert Item -->
+<div class="border-l-4 border-error bg-error/5 p-4 rounded-r-lg">
+<div class="flex justify-between mb-1">
+<span class="text-xs font-bold text-error">UNAUTHORIZED ENTRY</span>
+<span class="text-[10px] text-on-surface-variant">2m ago</span>
+</div>
+<p class="text-sm font-label-md">Zone 7 North Concourse. Suspicious activity reported near server room door B.</p>
+<button class="mt-2 text-[10px] font-bold underline text-error uppercase">Deploy Team 4</button>
+</div>
+<div class="border-l-4 border-error bg-error/5 p-4 rounded-r-lg">
+<div class="flex justify-between mb-1">
+<span class="text-xs font-bold text-error">FLARE DETECTED</span>
+<span class="text-[10px] text-on-surface-variant">5m ago</span>
+</div>
+<p class="text-sm font-label-md">Section 204. Pyrotechnics visual match 89% by AI vision.</p>
+<button class="mt-2 text-[10px] font-bold underline text-error uppercase">Redirect Camera 42</button>
+</div>
+<div class="border-l-4 border-secondary-container bg-secondary-container/5 p-4 rounded-r-lg">
+<div class="flex justify-between mb-1">
+<span class="text-xs font-bold text-on-secondary-container">LOST CHILD</span>
+<span class="text-[10px] text-on-surface-variant">12m ago</span>
+</div>
+<p class="text-sm font-label-md">Reported at Information Desk 3. Green shirt, approximately 6 years old.</p>
+<button class="mt-2 text-[10px] font-bold underline text-on-secondary-container uppercase">Broadcast Alert</button>
+</div>
+</div>
+</section>
+<!-- Medical Alerts: High Priority Cards (4 columns) -->
+<section class="col-span-12 lg:col-span-4 glass-card rounded-xl p-6 h-[400px] flex flex-col">
+<h3 class="font-headline-md text-headline-md mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">medical_services</span> Medical Dispatch
+                </h3>
+<div class="flex-grow space-y-4">
+<div class="glass-card-float p-4 rounded-xl border-l-4 border-tertiary-fixed-dim">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 bg-tertiary-container/20 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">emergency</span>
+</div>
+<div>
+<p class="text-xs text-tertiary-fixed-dim font-bold uppercase">Code Blue - Urgent</p>
+<p class="font-bold">Sec 112, Row 4</p>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant">Possible cardiac arrest. Medical Team Alpha dispatched. ETA 1:20m.</p>
+<div class="mt-3 bg-black/20 p-2 rounded flex justify-between items-center">
+<span class="text-[10px] font-bold uppercase">TEAM STATUS: EN ROUTE</span>
+<span class="material-symbols-outlined text-primary-container text-sm">navigation</span>
+</div>
+</div>
+<div class="glass-card p-4 rounded-xl border-l-4 border-on-tertiary-container">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 bg-on-tertiary-container/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container">ecg_heart</span>
+</div>
+<div>
+<p class="text-xs text-on-tertiary-container font-bold uppercase">Heat Exhaustion</p>
+<p class="font-bold">Concourse Level 3</p>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant">Spectator needs cooling and hydration. Team Gamma handling.</p>
+</div>
+</div>
+</section>
+<!-- AI Recommendations: Insight Cards (4 columns) -->
+<section class="col-span-12 lg:col-span-4 glass-card rounded-xl p-6 h-[400px] flex flex-col bg-primary-container/5 overflow-hidden relative">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl">bolt</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">psychology</span> AI Insights
+                </h3>
+<div class="space-y-4 relative z-10">
+<div class="bg-black/30 backdrop-blur-md p-4 rounded-xl border border-primary-container/20">
+<h4 class="text-xs font-bold text-primary-container uppercase mb-2">Dynamic Exit Routing</h4>
+<p class="text-sm">Predictive model suggests opening <strong>Gate D-4</strong> in 15 minutes to prevent bottleneck during halftime surge.</p>
+<div class="mt-3 flex gap-2">
+<button class="bg-primary-container text-on-primary-container px-3 py-1.5 rounded-lg text-xs font-bold uppercase">Approve</button>
+<button class="glass-card px-3 py-1.5 rounded-lg text-xs font-bold uppercase">Dismiss</button>
+</div>
+</div>
+<div class="bg-black/30 backdrop-blur-md p-4 rounded-xl border border-primary-container/10">
+<h4 class="text-xs font-bold text-primary-container uppercase mb-2">Staff Reallocation</h4>
+<p class="text-sm">East stands are under-staffed for current crowd aggression metrics. Reassign 4 stewards from Zone C.</p>
+<button class="mt-2 text-xs font-bold text-primary-container flex items-center gap-1">VIEW RESOURCE MAP <span class="material-symbols-outlined text-xs">arrow_forward</span></button>
+</div>
+</div>
+</section>
+<!-- Volunteer Status: Team Tracking Table (Full Width) -->
+<section class="col-span-12 glass-card rounded-xl p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">groups</span> Volunteer Force Distribution
+                    </h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface-container-high rounded-lg">
+<span class="text-xs font-bold">Total Active</span>
+<span class="text-lg font-bold text-primary-container">428</span>
+</div>
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">add_task</span> NEW DEPLOYMENT
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-white/10 text-[10px] text-on-surface-variant font-bold uppercase tracking-widest">
+<th class="pb-3 px-4">Sector Team</th>
+<th class="pb-3 px-4">Lead</th>
+<th class="pb-3 px-4">Headcount</th>
+<th class="pb-3 px-4">Current Task</th>
+<th class="pb-3 px-4">Status</th>
+<th class="pb-3 px-4">Efficiency</th>
+</tr>
+</thead>
+<tbody class="font-label-md text-label-md">
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+<td class="py-4 px-4 font-bold">NORTH-CON-1</td>
+<td class="py-4 px-4">Jane Doe</td>
+<td class="py-4 px-4 text-on-surface-variant">12 Units</td>
+<td class="py-4 px-4">Queue Management</td>
+<td class="py-4 px-4">
+<span class="bg-primary-container/10 text-primary-container px-2 py-1 rounded text-[10px] font-bold">ACTIVE</span>
+</td>
+<td class="py-4 px-4">
+<div class="w-24 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 88%"></div>
+</div>
+</td>
+</tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+<td class="py-4 px-4 font-bold">SOUTH-FAN-ZONE</td>
+<td class="py-4 px-4">Mark Ruffalo</td>
+<td class="py-4 px-4 text-on-surface-variant">24 Units</td>
+<td class="py-4 px-4">Merchandise Crowd Control</td>
+<td class="py-4 px-4">
+<span class="bg-primary-container/10 text-primary-container px-2 py-1 rounded text-[10px] font-bold">ACTIVE</span>
+</td>
+<td class="py-4 px-4">
+<div class="w-24 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 72%"></div>
+</div>
+</td>
+</tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+<td class="py-4 px-4 font-bold">MED-RESPONSE-B</td>
+<td class="py-4 px-4">Dr. Strange</td>
+<td class="py-4 px-4 text-on-surface-variant">8 Units</td>
+<td class="py-4 px-4">On Standby</td>
+<td class="py-4 px-4">
+<span class="bg-secondary-container/20 text-on-secondary-container px-2 py-1 rounded text-[10px] font-bold uppercase">Standby</span>
+</td>
+<td class="py-4 px-4">
+<div class="w-24 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed-dim" style="width: 100%"></div>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="py-4 px-4 font-bold">VIP-ESCORT-A</td>
+<td class="py-4 px-4">Natasha R.</td>
+<td class="py-4 px-4 text-on-surface-variant">4 Units</td>
+<td class="py-4 px-4">Dignitary Arrival</td>
+<td class="py-4 px-4">
+<span class="bg-error/10 text-error px-2 py-1 rounded text-[10px] font-bold uppercase">Urgent</span>
+</td>
+<td class="py-4 px-4">
+<div class="w-24 h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error" style="width: 95%"></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Footer Shell -->
+<footer class="w-full py-8 border-t border-outline-variant/5 flex flex-col md:flex-row justify-between items-center gap-4 text-on-surface-variant font-label-md text-label-md">
+<p>© 2024 StadiumGPT. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-on-surface transition-colors" href="#">Stadium Map</a>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-primary-container rounded-full animate-pulse"></span>
+<span>System Health: Nominal</span>
+</div>
+</footer>
+</main>
+<!-- Floating Action Button (Contextual for Home/Dashboard) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,255,133,0.4)] hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+<!-- Micro-interaction Scripts -->
+<script>
+        document.querySelectorAll('.glass-card, .glass-card-float').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body></html>
